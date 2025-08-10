@@ -1,19 +1,5 @@
 import { useEffect, useState } from "react";
-
-type Prefecture = {
-  id: number;
-  prefecture_name: string;
-};
-
-type City = {
-  id: number;
-  city_name: string;
-};
-
-type Weather = {
-  title: string;
-  description: string;
-};
+import { Prefecture, City, Weather } from "./types";
 
 function App() {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
@@ -39,10 +25,7 @@ function App() {
   const loadWeather = async (cityId: number) => {
     const response = await fetch(`/cities/${cityId}/weather/`);
     const data = await response.json();
-    setWeather({
-      title: data.weather.title,
-      description: data.weather.description.bodyText,
-    });
+    setWeather(data.weather);
   };
 
   return (
@@ -74,7 +57,28 @@ function App() {
       {weather && (
         <div>
           <h2>{weather.title}</h2>
-          <p>{weather.description}</p>
+          <p>
+            {weather.description.bodyText.split("\n").map((line, index) => (
+              <span key={index}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </p>
+          <h3>予報</h3>
+          <ul>
+            {weather.forecasts.map((forecast) => (
+              <div>
+                <h4>
+                  {forecast.dateLabel}({forecast.date})
+                </h4>
+                <p>{forecast.telop}</p>
+                <p>{forecast.detail.weather}</p>
+                <p>{forecast.temperature.min.celsius && `最低気温：${forecast.temperature.min.celsius}°C`}</p>
+                <p>{forecast.temperature.max.celsius && `最高気温：${forecast.temperature.max.celsius}°C`}</p>
+              </div>
+            ))}
+          </ul>
         </div>
       )}
     </>
