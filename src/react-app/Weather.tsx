@@ -31,7 +31,7 @@ export function Weather() {
           onKeyDown={fetchWeather}
         />
         {weather && (
-          <Stack mt={20}>
+          <Stack mt={20} px="xs">
             <Text>{weather.locationName}</Text>
             <Title order={1}>{weather.hourly[0].temperature.current}°</Title>
             <Text>{weather.hourly[0].forecast}</Text>
