@@ -25,7 +25,7 @@ const theme = createTheme({
 
 export default function App() {
   return (
-    <MantineProvider theme={theme}>
+    <MantineProvider theme={theme} defaultColorScheme="dark">
       <Weather />
     </MantineProvider>
   );

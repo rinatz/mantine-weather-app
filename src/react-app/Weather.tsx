@@ -78,32 +78,32 @@ export function Weather() {
           weather && (
             <Box px="sm">
               <Group gap="xs" mt={40}>
-                <IconMapPin size={24} color="white" />
-                <Text fw="bold" c="white">
+                <IconMapPin size={24} />
+                <Text fw="bold">
                   {weather.locationName}
                 </Text>
               </Group>
 
-              <Text size="64px" fw="bold" c="white" mt={20}>
+              <Text size="64px" fw="bold" mt={20}>
                 {weather.hourly[0].temperature.current}°
               </Text>
-              <Text fw="bold" c="white">
+              <Text fw="bold">
                 {weather.hourly[0].forecast}
               </Text>
 
               <Flex align="center" mt={20}>
-                <Text size="sm" c="white">
+                <Text size="sm">
                   ↑{weather.daily[0].temperature.max}°
                 </Text>
-                <Text size="xl" c="white" px={2}>
+                <Text size="xl" px={2}>
                   /
                 </Text>
-                <Text size="sm" c="white">
+                <Text size="sm">
                   ↓{weather.daily[0].temperature.min}°
                 </Text>
               </Flex>
 
-              <Text size="sm" c="white">
+              <Text size="sm">
                 体感温度{weather.hourly[0].temperature.apparent}°
               </Text>
 
@@ -127,19 +127,19 @@ export function Weather() {
                   <Flex justify="space-between" gap="xl">
                     {weather.hourly.map((hour) => (
                       <Stack key={hour.time} align="center" gap="xs" mb="xl">
-                        <Text size="sm" c="white">
+                        <Text size="sm" c="">
                           {hour.time}
                         </Text>
-                        <Text size="sm" c="white">
+                        <Text size="sm">
                           {hour.forecast}
                         </Text>
-                        <Text size="32px" c="white">
+                        <Text size="32px">
                           {hour.temperature.current}°
                         </Text>
 
                         <Flex align="center" pr={16}>
-                          <IconDroplet size={16} color="white" />
-                          <Text size="sm" c="white">
+                          <IconDroplet size={16} />
+                          <Text size="sm">
                             {hour.precipitationProbability}%
                           </Text>
                         </Flex>
