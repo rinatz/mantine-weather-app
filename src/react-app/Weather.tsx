@@ -1,9 +1,18 @@
 import { useState } from "react";
 import { WeatherByLocationResponse } from "../types";
-import { Box, Stack, TextInput, Title, Text, Group } from "@mantine/core";
+import {
+  Box,
+  Stack,
+  TextInput,
+  Text,
+  Group,
+  Loader,
+  Flex,
+} from "@mantine/core";
 import { IconMapPin, IconSearch } from "@tabler/icons-react";
 
 export function Weather() {
+  const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState<WeatherByLocationResponse | null>(
     null
   );
@@ -12,14 +21,21 @@ export function Weather() {
     if (e.key !== "Enter") {
       return;
     }
-    const locationName = e.currentTarget.value;
+    const locationName = e.currentTarget.value.trim();
 
     const url = new URL("/weather", window.location.origin);
     url.searchParams.set("q", locationName);
 
-    const response = await fetch(url.toString());
+    setLoading(true);
+    setWeather(null);
 
-    setWeather(await response.json());
+    try {
+      const response = await fetch(url.toString());
+      setLoading(false);
+      setWeather(await response.json());
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -29,30 +45,46 @@ export function Weather() {
       h="100vh"
       bg="linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
     >
-      <Box w={640}>
+      <Box w="100%" maw={640} p="md">
         <TextInput
           placeholder="天気を見たい地名を入力"
           leftSection={<IconSearch />}
           onKeyDown={fetchWeather}
         />
-        {weather && (
-          <Stack mt={20} px="xs">
-            <Group gap="xs" align="center">
-              <IconMapPin size={24} color="#1a61ff" />
-              <Text fw="bold">{weather.locationName}</Text>
-            </Group>
+        {loading ? (
+          <Group gap="xs" align="center" justify="center" mt={20}>
+            <Loader size="sm" />
+          </Group>
+        ) : (
+          weather && (
+            <>
+              <Group gap="xs" align="center" mt={40}>
+                <IconMapPin size={24} />
+                <Text fw="bold">{weather.locationName}</Text>
+              </Group>
 
-            <Title order={1}>{weather.hourly[0].temperature.current}°</Title>
-            <Text fw="bold">{weather.hourly[0].forecast}</Text>
+              <Text size="64px" fw="bold" mt={20}>
+                {weather.hourly[0].temperature.current}°
+              </Text>
+              <Text fw="bold">{weather.hourly[0].forecast}</Text>
 
-            <Text size="sm" c="dimmed">
-              ↑{weather.daily[0].temperature.max}°/↓
-              {weather.daily[0].temperature.min}°
-            </Text>
-            <Text size="sm" c="dimmed">
-              体感温度{weather.hourly[0].temperature.apparent}°
-            </Text>
-          </Stack>
+              <Flex align="center" mt={20}>
+                <Text size="sm" c="dimmed">
+                  ↑{weather.daily[0].temperature.max}°
+                </Text>
+                <Text size="xl" c="dimmed" px={2}>
+                  /
+                </Text>
+                <Text size="sm" c="dimmed">
+                  ↓{weather.daily[0].temperature.min}°
+                </Text>
+              </Flex>
+
+              <Text size="sm" c="dimmed">
+                体感温度{weather.hourly[0].temperature.apparent}°
+              </Text>
+            </>
+          )
         )}
       </Box>
     </Stack>

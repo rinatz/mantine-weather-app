@@ -5,33 +5,33 @@ import { Weather } from "./Weather";
 
 const theme = createTheme({
   colors: {
-    blue: [
-      "#e6f0ff",
-      "#b3ccff",
-      "#80a8ff",
-      "#4d85ff",
-      "#1a61ff",
-      "#0046e6",
-      "#0036b3",
-      "#002680",
-      "#00194d",
-      "#000d1a",
+    navy: [
+      "#c4d1eb", // 0 - 明るいハイライト用（ほぼ使わない）
+      "#a1b4d9",
+      "#7d96c7",
+      "#5a7abe",
+      "#345aa8",
+      "#274078", // 5 - メインに使う濃いネイビー
+      "#1e2f58",
+      "#162241", // 7 - 濃い見出し向き
+      "#101832",
+      "#0a101f", // 9 - ほぼ黒に近い濃紺
     ],
-    darkGray: [
-      "#f8f9fa",
-      "#e9ecef",
-      "#dee2e6",
-      "#ced4da",
-      "#adb5bd",
-      "#6c757d",
-      "#495057",
-      "#343a40",
-      "#212529",
-      "#121416",
+    charcoal: [
+      "#d9dbdf", // 0 - 明るい
+      "#b0b3ba",
+      "#8a8e96",
+      "#62666f",
+      "#444850",
+      "#2e323a", // 5 - メインの濃いチャコールグレー
+      "#21252b",
+      "#181b21", // 7 - かなり濃い
+      "#101216",
+      "#08090b", // 9 - 黒に近いチャコール
     ],
   },
-  primaryColor: "blue",
-  black: "#343a40",
+  primaryColor: "navy",
+  black: "#2e323a",
   fontFamily: "Noto Sans, sans-serif",
   headings: { fontFamily: "Noto Sans, sans-serif" },
 });
