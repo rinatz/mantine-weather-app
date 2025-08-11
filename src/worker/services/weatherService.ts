@@ -1,5 +1,5 @@
-import { fetchLocation } from "../external/nominatim";
-import { fetchWeatherForecast } from "../external/openMeteo";
+import { fetchLocation } from "../external/nominatim"; // cSpell:ignore nominatim
+import { fetchWeatherForecast } from "../external/openMeteo"; // cSpell:ignore Meteo
 import { WeatherByLocationResponse } from "../../types";
 
 function getWeatherCodeString(weatherCode: number): string {

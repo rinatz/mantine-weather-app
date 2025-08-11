@@ -9,7 +9,7 @@ import {
   Loader,
   Flex,
 } from "@mantine/core";
-import { IconMapPin, IconSearch } from "@tabler/icons-react";
+import { IconMapPin, IconSearch } from "@tabler/icons-react"; // cSpell:ignore tabler
 
 export function Weather() {
   const [loading, setLoading] = useState(false);
