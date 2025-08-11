@@ -57,11 +57,14 @@ export async function getWeatherByLocation(
           weatherForecast.hourly.weather_code[index]
         ),
         temperature: {
-          current: weatherForecast.hourly.temperature_2m[index],
-          apparent: weatherForecast.hourly.apparent_temperature[index],
+          current: Math.round(weatherForecast.hourly.temperature_2m[index]),
+          apparent: Math.round(
+            weatherForecast.hourly.apparent_temperature[index]
+          ),
         },
-        precipitationProbability:
-          weatherForecast.hourly.precipitation_probability[index],
+        precipitationProbability: Math.round(
+          weatherForecast.hourly.precipitation_probability[index]
+        ),
       };
     }),
     daily: weatherForecast.daily.time.map((time, index) => {
@@ -71,11 +74,12 @@ export async function getWeatherByLocation(
           weatherForecast.daily.weather_code[index]
         ),
         temperature: {
-          max: weatherForecast.daily.temperature_2m_max[index],
-          min: weatherForecast.daily.temperature_2m_min[index],
+          max: Math.round(weatherForecast.daily.temperature_2m_max[index]),
+          min: Math.round(weatherForecast.daily.temperature_2m_min[index]),
         },
-        precipitationProbability:
-          weatherForecast.daily.precipitation_probability_max[index],
+        precipitationProbability: Math.round(
+          weatherForecast.daily.precipitation_probability_max[index]
+        ),
       };
     }),
   };
