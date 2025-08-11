@@ -45,7 +45,16 @@ export function Weather() {
       h="100vh"
       bg="linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
     >
-      <Box w="100%" maw={640} p="md">
+      <Box
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.7)", // 透明度50%の黒
+          zIndex: 0,
+        }}
+      />
+
+      <Box w="100%" maw={640} p="md" style={{ zIndex: 1 }}>
         <Flex gap="sm">
           <TextInput
             placeholder="天気を見たい地名を入力"
@@ -65,33 +74,37 @@ export function Weather() {
           </Group>
         ) : (
           weather && (
-            <>
-              <Group gap="xs" align="center" mt={40}>
-                <IconMapPin size={24} />
-                <Text fw="bold">{weather.locationName}</Text>
+            <Box px="sm">
+              <Group gap="xs" mt={40}>
+                <IconMapPin size={24} color="white" />
+                <Text fw="bold" c="white">
+                  {weather.locationName}
+                </Text>
               </Group>
 
-              <Text size="64px" fw="bold" mt={20}>
+              <Text size="64px" fw="bold" c="white" mt={20}>
                 {weather.hourly[0].temperature.current}°
               </Text>
-              <Text fw="bold">{weather.hourly[0].forecast}</Text>
+              <Text fw="bold" c="white">
+                {weather.hourly[0].forecast}
+              </Text>
 
               <Flex align="center" mt={20}>
-                <Text size="sm" c="dimmed">
+                <Text size="sm" c="white">
                   ↑{weather.daily[0].temperature.max}°
                 </Text>
-                <Text size="xl" c="dimmed" px={2}>
+                <Text size="xl" c="white" px={2}>
                   /
                 </Text>
-                <Text size="sm" c="dimmed">
+                <Text size="sm" c="white">
                   ↓{weather.daily[0].temperature.min}°
                 </Text>
               </Flex>
 
-              <Text size="sm" c="dimmed">
+              <Text size="sm" c="white">
                 体感温度{weather.hourly[0].temperature.apparent}°
               </Text>
-            </>
+            </Box>
           )
         )}
       </Box>
