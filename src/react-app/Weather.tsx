@@ -12,7 +12,30 @@ import {
   Paper,
   ScrollArea,
 } from "@mantine/core";
-import { IconDroplet, IconMapPin, IconSearch } from "@tabler/icons-react"; // cSpell:ignore tabler
+import {
+  IconCloud,
+  IconDroplet,
+  IconMapPin,
+  IconSearch,
+  IconSun,
+  IconMist,
+  IconCloudRain,
+  IconCloudSnow,
+  IconCloudStorm,
+} from "@tabler/icons-react"; // cSpell:ignore tabler
+
+function WeatherIcon({ code }: { code: number }) {
+  if ([0, 1].includes(code)) return <IconSun />;
+  if ([2, 3].includes(code)) return <IconCloud />;
+  if ([45, 48].includes(code)) return <IconMist />;
+  if ([51, 53, 55, 56, 57].includes(code)) return <IconCloudRain />;
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return <IconCloudRain />;
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return <IconCloudSnow />; // 雪
+  if ([95, 96, 99].includes(code)) return <IconCloudStorm />; // 雷雨
+  if ([96, 99].includes(code)) return <IconCloudStorm />; // ひょうを伴う雷雨
+
+  return <Box />;
+}
 
 export function Weather() {
   const [searchLocationName, setSearchLocationName] = useState("");
@@ -79,28 +102,20 @@ export function Weather() {
             <Box px="sm">
               <Group gap="xs" mt={40}>
                 <IconMapPin size={24} />
-                <Text fw="bold">
-                  {weather.locationName}
-                </Text>
+                <Text fw="bold">{weather.locationName}</Text>
               </Group>
 
               <Text size="64px" fw="bold" mt={20}>
                 {weather.hourly[0].temperature.current}°
               </Text>
-              <Text fw="bold">
-                {weather.hourly[0].forecast}
-              </Text>
+              <Text fw="bold">{weather.hourly[0].forecast}</Text>
 
               <Flex align="center" mt={20}>
-                <Text size="sm">
-                  ↑{weather.daily[0].temperature.max}°
-                </Text>
+                <Text size="sm">↑{weather.daily[0].temperature.max}°</Text>
                 <Text size="xl" px={2}>
                   /
                 </Text>
-                <Text size="sm">
-                  ↓{weather.daily[0].temperature.min}°
-                </Text>
+                <Text size="sm">↓{weather.daily[0].temperature.min}°</Text>
               </Flex>
 
               <Text size="sm">
@@ -130,14 +145,10 @@ export function Weather() {
                         <Text size="sm" c="">
                           {hour.time}
                         </Text>
-                        <Text size="sm">
-                          {hour.forecast}
-                        </Text>
-                        <Text size="32px">
-                          {hour.temperature.current}°
-                        </Text>
+                        <WeatherIcon code={hour.weatherCode} />
+                        <Text size="24px">{hour.temperature.current}°</Text>
 
-                        <Flex align="center" pr={16}>
+                        <Flex align="center" pr={8}>
                           <IconDroplet size={16} />
                           <Text size="sm">
                             {hour.precipitationProbability}%
