@@ -18,11 +18,11 @@ export type NominatimSearchResponse = {
 // Nominatim APIを使用して地名に対する位置情報を取得する
 // See: https://nominatim.org/
 export async function fetchLocation(
-  location: string
+  locationName: string
 ): Promise<NominatimSearchResponse[]> {
   const url = new URL("https://nominatim.openstreetmap.org/search");
   url.searchParams.set("format", "jsonv2"); // cSpell:ignore jsonv2
-  url.searchParams.set("q", location);
+  url.searchParams.set("q", locationName);
 
   console.log("Fetching location:", url.toString());
 

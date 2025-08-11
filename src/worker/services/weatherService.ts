@@ -38,9 +38,9 @@ function getWeatherCodeString(weatherCode: number): string {
 }
 
 export async function getWeatherByLocation(
-  location: string
+  locationName: string
 ): Promise<WeatherByLocationResponse> {
-  const geo = await fetchLocation(location);
+  const geo = await fetchLocation(locationName);
   const { name, lat, lon } = geo[0];
 
   const weatherForecast = await fetchWeatherForecast({
