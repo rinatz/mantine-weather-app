@@ -10,6 +10,7 @@ import {
   Flex,
   Button,
   Paper,
+  ScrollArea,
 } from "@mantine/core";
 import { IconDroplet, IconMapPin, IconSearch } from "@tabler/icons-react"; // cSpell:ignore tabler
 
@@ -112,29 +113,40 @@ export function Weather() {
                 pt="lg"
                 px="xl"
                 bg="rgba(255, 255, 255, 0.1)"
+                style={{
+                  overflowX: "auto",
+                  whiteSpace: "nowrap",
+                }}
               >
-                <Box>
-                  {weather.hourly.map((hour) => (
-                    <Stack key={hour.time} align="center" gap="xs" mb="xl">
-                      <Text size="sm" c="white">
-                        {hour.time}
-                      </Text>
-                      <Text size="sm" c="white">
-                        {hour.forecast}
-                      </Text>
-                      <Text size="xl" c="white">
-                        {hour.temperature.current}°
-                      </Text>
-
-                      <Flex align="center">
-                        <IconDroplet size={16} color="white" />
+                <ScrollArea
+                  type="hover"
+                  scrollbarSize={16}
+                  scrollHideDelay={0}
+                  offsetScrollbars
+                >
+                  <Flex justify="space-between" gap="xl">
+                    {weather.hourly.map((hour) => (
+                      <Stack key={hour.time} align="center" gap="xs" mb="xl">
                         <Text size="sm" c="white">
-                          {hour.precipitationProbability}%
+                          {hour.time}
                         </Text>
-                      </Flex>
-                    </Stack>
-                  ))}
-                </Box>
+                        <Text size="sm" c="white">
+                          {hour.forecast}
+                        </Text>
+                        <Text size="32px" c="white">
+                          {hour.temperature.current}°
+                        </Text>
+
+                        <Flex align="center" pr={16}>
+                          <IconDroplet size={16} color="white" />
+                          <Text size="sm" c="white">
+                            {hour.precipitationProbability}%
+                          </Text>
+                        </Flex>
+                      </Stack>
+                    ))}
+                  </Flex>
+                </ScrollArea>
               </Paper>
             </Box>
           )
