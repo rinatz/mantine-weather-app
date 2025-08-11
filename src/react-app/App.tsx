@@ -30,14 +30,13 @@ function App() {
       {weather && (
         <div>
           <h3>{weather.locationName}</h3>
-          <ul>
-            {weather.daily.map((day) => (
-              <li key={day.time}>
-                {day.time}: {day.forecast} (最小: {day.temperature.min}°C, 最大:{" "}
-                {day.temperature.max}°C)
-              </li>
-            ))}
-          </ul>
+          <h1>{weather.hourly[0].temperature.current}°</h1>
+          <p>{weather.hourly[0].forecast}</p>
+          <p>
+            ↑{weather.daily[0].temperature.max}°/↓
+            {weather.daily[0].temperature.min}°
+          </p>
+          <p>体感温度{weather.hourly[0].temperature.apparent}°</p>
         </div>
       )}
     </>

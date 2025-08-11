@@ -12,8 +12,12 @@ export async function fetchWeatherForecast({
   url.searchParams.set("longitude", longitude.toString());
   url.searchParams.set("timezone", "auto");
   url.searchParams.set(
+    "hourly",
+    "weather_code,temperature_2m,apparent_temperature,precipitation_probability"
+  );
+  url.searchParams.set(
     "daily",
-    "weather_code,temperature_2m_max,temperature_2m_min"
+    "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max"
   );
 
   console.log("Weather forecast request:", url.toString());
