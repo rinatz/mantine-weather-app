@@ -9,8 +9,9 @@ import {
   Loader,
   Flex,
   Button,
+  Paper,
 } from "@mantine/core";
-import { IconMapPin, IconSearch } from "@tabler/icons-react"; // cSpell:ignore tabler
+import { IconDroplet, IconMapPin, IconSearch } from "@tabler/icons-react"; // cSpell:ignore tabler
 
 export function Weather() {
   const [searchLocationName, setSearchLocationName] = useState("");
@@ -42,12 +43,12 @@ export function Weather() {
     <Stack
       align="center"
       pt={100}
-      h="100vh"
+      mih="100vh"
       bg="linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
     >
       <Box
         style={{
-          position: "absolute",
+          position: "fixed",
           inset: 0,
           backgroundColor: "rgba(0, 0, 0, 0.7)",
           zIndex: 0,
@@ -104,6 +105,37 @@ export function Weather() {
               <Text size="sm" c="white">
                 体感温度{weather.hourly[0].temperature.apparent}°
               </Text>
+
+              <Paper
+                mt="xl"
+                radius="xl"
+                pt="lg"
+                px="xl"
+                bg="rgba(255, 255, 255, 0.1)"
+              >
+                <Box>
+                  {weather.hourly.map((hour) => (
+                    <Stack key={hour.time} align="center" gap="xs" mb="xl">
+                      <Text size="sm" c="white">
+                        {hour.time}
+                      </Text>
+                      <Text size="sm" c="white">
+                        {hour.forecast}
+                      </Text>
+                      <Text size="xl" c="white">
+                        {hour.temperature.current}°
+                      </Text>
+
+                      <Flex align="center">
+                        <IconDroplet size={16} color="white" />
+                        <Text size="sm" c="white">
+                          {hour.precipitationProbability}%
+                        </Text>
+                      </Flex>
+                    </Stack>
+                  ))}
+                </Box>
+              </Paper>
             </Box>
           )
         )}
