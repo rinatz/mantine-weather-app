@@ -8,21 +8,18 @@ import {
   Group,
   Loader,
   Flex,
+  Button,
 } from "@mantine/core";
 import { IconMapPin, IconSearch } from "@tabler/icons-react"; // cSpell:ignore tabler
 
 export function Weather() {
+  const [locationName, setLocationName] = useState("");
   const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState<WeatherByLocationResponse | null>(
     null
   );
 
-  const fetchWeather = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== "Enter") {
-      return;
-    }
-    const locationName = e.currentTarget.value.trim();
-
+  const fetchWeather = async () => {
     const url = new URL("/weather", window.location.origin);
     url.searchParams.set("q", locationName);
 
@@ -45,11 +42,21 @@ export function Weather() {
       bg="linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
     >
       <Box w="100%" maw={640} p="md">
-        <TextInput
-          placeholder="天気を見たい地名を入力"
-          leftSection={<IconSearch />}
-          onKeyDown={fetchWeather}
-        />
+        <Flex gap="sm">
+          <TextInput
+            placeholder="天気を見たい地名を入力"
+            leftSection={<IconSearch />}
+            flex={1}
+            onChange={(e) => setLocationName(e.currentTarget.value.trim())}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                fetchWeather();
+              }
+            }}
+          />
+          <Button onClick={fetchWeather}>表示</Button>
+        </Flex>
+
         {loading ? (
           <Group gap="xs" align="center" justify="center" mt={20}>
             <Loader size="sm" />
