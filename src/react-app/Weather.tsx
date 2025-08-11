@@ -31,7 +31,6 @@ export function Weather() {
 
     try {
       const response = await fetch(url.toString());
-      setLoading(false);
       setWeather(await response.json());
     } finally {
       setLoading(false);
