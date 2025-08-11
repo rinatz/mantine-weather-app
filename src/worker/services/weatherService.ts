@@ -53,6 +53,7 @@ export async function getWeatherByLocation(
     hourly: weatherForecast.hourly.time.map((time, index) => {
       return {
         time,
+        weatherCode: weatherForecast.hourly.weather_code[index],
         forecast: getWeatherCodeString(
           weatherForecast.hourly.weather_code[index]
         ),
@@ -70,6 +71,7 @@ export async function getWeatherByLocation(
     daily: weatherForecast.daily.time.map((time, index) => {
       return {
         time,
+        weatherCode: weatherForecast.daily.weather_code[index],
         forecast: getWeatherCodeString(
           weatherForecast.daily.weather_code[index]
         ),

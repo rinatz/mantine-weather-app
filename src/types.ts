@@ -9,6 +9,7 @@ export type WeatherByLocationResponse = {
    */
   hourly: {
     time: string; // 時間
+    weatherCode: number; // 天気コード
     forecast: string; // 天気予報
     temperature: {
       current: number; // 現在の気温
@@ -22,6 +23,7 @@ export type WeatherByLocationResponse = {
    */
   daily: {
     time: string; // 日付
+    weatherCode: number; // 天気コード
     forecast: string; // 天気予報
     temperature: {
       max: number; // 最高気温
