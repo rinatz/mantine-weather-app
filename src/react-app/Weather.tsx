@@ -49,7 +49,7 @@ export function Weather() {
         style={{
           position: "absolute",
           inset: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.7)", // 透明度50%の黒
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
           zIndex: 0,
         }}
       />
