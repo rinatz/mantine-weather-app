@@ -24,17 +24,19 @@ import {
   IconCloudStorm,
 } from "@tabler/icons-react"; // cSpell:ignore tabler
 
-function WeatherIcon({ code }: { code: number }) {
-  if ([0, 1].includes(code)) return <IconSun />;
-  if ([2, 3].includes(code)) return <IconCloud />;
-  if ([45, 48].includes(code)) return <IconMist />;
-  if ([51, 53, 55, 56, 57].includes(code)) return <IconCloudRain />;
-  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return <IconCloudRain />;
-  if ([71, 73, 75, 77, 85, 86].includes(code)) return <IconCloudSnow />; // 雪
-  if ([95, 96, 99].includes(code)) return <IconCloudStorm />; // 雷雨
-  if ([96, 99].includes(code)) return <IconCloudStorm />; // ひょうを伴う雷雨
+function IconWeather({ code, ...props }: { code: number; [key: string]: any }) {
+  if ([0, 1].includes(code)) return <IconSun {...props} />; // 快晴〜ほぼ晴れ
+  if ([2, 3].includes(code)) return <IconCloud {...props} />; // 薄曇り〜曇り
+  if ([45, 48].includes(code)) return <IconMist {...props} />; // 霧
+  if ([51, 53, 55, 56, 57].includes(code)) return <IconCloudRain {...props} />; // 霧雨
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code))
+    return <IconCloudRain {...props} />; // 雨
+  if ([71, 73, 75, 77, 85, 86].includes(code))
+    return <IconCloudSnow {...props} />; // 雪
+  if ([95, 96, 99].includes(code)) return <IconCloudStorm {...props} />; // 雷雨
+  if ([96, 99].includes(code)) return <IconCloudStorm {...props} />; // ひょうを伴う雷雨
 
-  return <Box />;
+  return <Box {...props} />;
 }
 
 export function Weather() {
@@ -100,27 +102,31 @@ export function Weather() {
         ) : (
           weather && (
             <Box px="sm">
-              <Group gap="xs" mt={40}>
-                <IconMapPin size={24} />
-                <Text fw="bold">{weather.locationName}</Text>
-              </Group>
-
-              <Text size="64px" fw="bold" mt={20}>
-                {weather.hourly[0].temperature.current}°
-              </Text>
-              <Text fw="bold">{weather.hourly[0].forecast}</Text>
-
-              <Flex align="center" mt={20}>
-                <Text size="sm">↑{weather.daily[0].temperature.max}°</Text>
-                <Text size="xl" px={2}>
-                  /
-                </Text>
-                <Text size="sm">↓{weather.daily[0].temperature.min}°</Text>
+              <Flex align="center" justify="space-around" mt="xl">
+                <Stack gap={0}>
+                  <Group gap="xs">
+                    <IconMapPin size={24} />
+                    <Text fw="bold">{weather.locationName}</Text>
+                  </Group>
+                  <Text size="64px" fw="bold" mt="xl">
+                    {weather.hourly[0].temperature.current}°
+                  </Text>
+                  <Text fw="bold" mt="md">
+                    {weather.hourly[0].forecast}
+                  </Text>
+                  <Flex align="center" mt="xl">
+                    <Text size="sm">↑{weather.daily[0].temperature.max}°</Text>
+                    <Text size="xl" px={2}>
+                      /
+                    </Text>
+                    <Text size="sm">↓{weather.daily[0].temperature.min}°</Text>
+                  </Flex>
+                  <Text size="sm">
+                    体感温度{weather.hourly[0].temperature.apparent}°
+                  </Text>
+                </Stack>
+                <IconWeather code={weather.hourly[0].weatherCode} size={128} />
               </Flex>
-
-              <Text size="sm">
-                体感温度{weather.hourly[0].temperature.apparent}°
-              </Text>
 
               <Paper
                 mt="xl"
@@ -145,7 +151,7 @@ export function Weather() {
                         <Text size="sm" c="">
                           {hour.time}
                         </Text>
-                        <WeatherIcon code={hour.weatherCode} />
+                        <IconWeather code={hour.weatherCode} />
                         <Text size="24px">{hour.temperature.current}°</Text>
 
                         <Flex align="center" pr={8}>
