@@ -13,15 +13,19 @@ import {
 import { IconMapPin, IconSearch } from "@tabler/icons-react"; // cSpell:ignore tabler
 
 export function Weather() {
-  const [locationName, setLocationName] = useState("");
+  const [searchLocationName, setSearchLocationName] = useState("");
   const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState<WeatherByLocationResponse | null>(
     null
   );
 
   const fetchWeather = async () => {
+    if (searchLocationName === "") {
+      return;
+    }
+
     const url = new URL("/weather", window.location.origin);
-    url.searchParams.set("q", locationName);
+    url.searchParams.set("q", searchLocationName);
 
     setLoading(true);
     setWeather(null);
@@ -47,12 +51,10 @@ export function Weather() {
             placeholder="天気を見たい地名を入力"
             leftSection={<IconSearch />}
             flex={1}
-            onChange={(e) => setLocationName(e.currentTarget.value.trim())}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                fetchWeather();
-              }
-            }}
+            onChange={(e) =>
+              setSearchLocationName(e.currentTarget.value.trim())
+            }
+            onKeyDown={(e) => e.key === "Enter" && fetchWeather()}
           />
           <Button onClick={fetchWeather}>表示</Button>
         </Flex>
