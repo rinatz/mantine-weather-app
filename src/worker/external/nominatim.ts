@@ -15,6 +15,8 @@ export type NominatimSearchResponse = {
   boundingbox: [string, string, string, string]; // cSpell:enableCompoundWords
 };
 
+// Nominatim APIを使用して地名に対する位置情報を取得する
+// See: https://nominatim.org/
 export async function fetchLocation(
   location: string
 ): Promise<NominatimSearchResponse[]> {

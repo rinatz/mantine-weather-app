@@ -36,6 +36,8 @@ export type WeatherForecastResponse = {
   };
 };
 
+// Open-Meteo APIを使用して位置情報に対する天気予報を取得する
+// See: https://open-meteo.com/
 export async function fetchWeatherForecast({
   latitude,
   longitude,
