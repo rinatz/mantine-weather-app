@@ -144,13 +144,14 @@ export function Weather() {
       py={100}
       mih="100vh"
       bg="linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
+      style={{ zIndex: 0 }}
     >
       <Box
         style={{
           position: "fixed",
           inset: 0,
           backgroundColor: "rgba(0, 0, 0, 0.7)",
-          zIndex: 0,
+          zIndex: 1,
         }}
       />
 
