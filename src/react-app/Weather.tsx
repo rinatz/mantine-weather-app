@@ -1,3 +1,5 @@
+// cSpell:ignore tabler
+
 import { useState } from "react";
 import { WeatherByLocationResponse } from "../types";
 import {
@@ -11,6 +13,7 @@ import {
   Button,
   Paper,
   ScrollArea,
+  BoxProps,
 } from "@mantine/core";
 import {
   IconCloud,
@@ -22,21 +25,45 @@ import {
   IconCloudRain,
   IconCloudSnow,
   IconCloudStorm,
-} from "@tabler/icons-react"; // cSpell:ignore tabler
+  IconProps,
+} from "@tabler/icons-react";
 
-function IconWeather({ code, ...props }: { code: number; [key: string]: any }) {
-  if ([0, 1].includes(code)) return <IconSun {...props} />; // 快晴〜ほぼ晴れ
-  if ([2, 3].includes(code)) return <IconCloud {...props} />; // 薄曇り〜曇り
-  if ([45, 48].includes(code)) return <IconMist {...props} />; // 霧
-  if ([51, 53, 55, 56, 57].includes(code)) return <IconCloudRain {...props} />; // 霧雨
-  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code))
-    return <IconCloudRain {...props} />; // 雨
-  if ([71, 73, 75, 77, 85, 86].includes(code))
-    return <IconCloudSnow {...props} />; // 雪
-  if ([95, 96, 99].includes(code)) return <IconCloudStorm {...props} />; // 雷雨
-  if ([96, 99].includes(code)) return <IconCloudStorm {...props} />; // ひょうを伴う雷雨
+type IconWeatherProps = {
+  code: number;
+} & Omit<IconProps, "ref"> &
+  BoxProps;
 
-  return <Box {...props} />;
+function IconWeather({ code, ...props }: IconWeatherProps) {
+  const iconProps = props as IconProps;
+
+  if ([0, 1].includes(code)) {
+    return <IconSun {...iconProps} />;
+  }
+  if ([2, 3].includes(code)) {
+    return <IconCloud {...iconProps} />;
+  }
+  if ([45, 48].includes(code)) {
+    return <IconMist {...iconProps} />;
+  }
+  if ([51, 53, 55, 56, 57].includes(code)) {
+    return <IconCloudRain {...iconProps} />;
+  }
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) {
+    return <IconCloudRain {...iconProps} />;
+  }
+  if ([71, 73, 75, 77, 85, 86].includes(code)) {
+    return <IconCloudSnow {...iconProps} />;
+  }
+  if ([95, 96, 99].includes(code)) {
+    return <IconCloudStorm {...iconProps} />;
+  }
+  if ([96, 99].includes(code)) {
+    return <IconCloudStorm {...iconProps} />;
+  }
+
+  const { ...boxProps } = props as BoxProps;
+
+  return <Box {...boxProps} />;
 }
 
 export function Weather() {
