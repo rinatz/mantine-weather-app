@@ -15,9 +15,11 @@
     "publish": true
   },
   "dependencies": {
+    "@date-fns/tz": "^1.4.1",
     "@mantine/core": "^8.2.4",
     "@mantine/hooks": "^8.2.4",
     "@tabler/icons-react": "^3.34.1",
+    "date-fns": "^4.1.0",
     "hono": "4.8.2",
     "react": "19.0.0",
     "react-dom": "19.0.0"
