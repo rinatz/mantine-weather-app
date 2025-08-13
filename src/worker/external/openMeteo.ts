@@ -1,7 +1,9 @@
+// cSpell:enableCompoundWords
+
 export type WeatherForecastResponse = {
   latitude: number;
   longitude: number;
-  generationtime_ms: number; // cSpell:enableCompoundWords
+  generationtime_ms: number;
   utc_offset_seconds: number;
   timezone: string;
   timezone_abbreviation: string;

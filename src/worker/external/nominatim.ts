@@ -1,6 +1,9 @@
+// cSpell:enableCompoundWords
+// cSpell:ignore jsonv2 licence
+
 export type NominatimSearchResponse = {
   place_id: number;
-  licence: string; // スペルミスだけどフィールド名はこれで合ってる cSpell:ignore licence
+  licence: string; // スペルミスだけどフィールド名はこれで合ってる
   osm_type: string;
   osm_id: number;
   lat: string;
@@ -12,7 +15,7 @@ export type NominatimSearchResponse = {
   addresstype: string;
   name: string;
   display_name: string;
-  boundingbox: [string, string, string, string]; // cSpell:enableCompoundWords
+  boundingbox: [string, string, string, string];
 };
 
 // Nominatim APIを使用して地名に対する位置情報を取得する
@@ -21,7 +24,7 @@ export async function fetchLocation(
   locationName: string
 ): Promise<NominatimSearchResponse[]> {
   const url = new URL("https://nominatim.openstreetmap.org/search");
-  url.searchParams.set("format", "jsonv2"); // cSpell:ignore jsonv2
+  url.searchParams.set("format", "jsonv2");
   url.searchParams.set("q", locationName);
 
   console.log("Fetching location:", url.toString());
