@@ -150,6 +150,7 @@ export function Weather() {
         style={{
           position: "fixed",
           inset: 0,
+          minHeight: "100vh",
           backgroundColor: "rgba(0, 0, 0, 0.7)",
           zIndex: 1,
         }}
