@@ -28,6 +28,7 @@ import {
   IconCloudStorm,
   IconProps,
 } from "@tabler/icons-react";
+import { format, parseISO } from "date-fns";
 
 type IconWeatherProps = {
   code: number;
@@ -220,10 +221,10 @@ export function Weather() {
                     {weather.hourly.map((hour) => (
                       <Stack key={hour.time} align="center" gap="xs" mb="xl">
                         <Text size="sm" c="">
-                          {hour.time}
+                          {format(parseISO(hour.time), "HH:mm")}
                         </Text>
                         <IconWeather code={hour.weatherCode} />
-                        <Text size="24px">{hour.temperature.current}°</Text>
+                        <Text size="24px" ml="xs">{hour.temperature.current}°</Text>
 
                         <Flex align="center" pr={8}>
                           <IconDroplet size={16} />
