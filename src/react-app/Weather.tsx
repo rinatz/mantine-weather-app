@@ -29,6 +29,7 @@ import {
   IconProps,
 } from "@tabler/icons-react";
 import { format, parseISO } from "date-fns";
+import { ja } from "date-fns/locale";
 
 type IconWeatherProps = {
   code: number;
@@ -110,6 +111,8 @@ function WeatherText({ weatherCode, ...props }: WeatherTextProps) {
 }
 
 export function Weather() {
+  const locale = ja;
+
   const [searchLocationName, setSearchLocationName] = useState("");
   const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState<WeatherByLocationResponse | null>(
@@ -138,7 +141,7 @@ export function Weather() {
   return (
     <Stack
       align="center"
-      pt={100}
+      py={100}
       mih="100vh"
       bg="linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)"
     >
@@ -202,7 +205,7 @@ export function Weather() {
 
               <Paper
                 mt="xl"
-                radius="xl"
+                radius="lg"
                 pt="lg"
                 px="xl"
                 bg="rgba(255, 255, 255, 0.1)"
@@ -230,15 +233,39 @@ export function Weather() {
 
                         <Flex align="center">
                           <IconDroplet size={16} />
-                          <Text size="sm">
-                            {hour.precipitationProbability}
-                          </Text>
+                          <Text size="sm">{hour.precipitationProbability}</Text>
                           <Text size="sm">%</Text>
                         </Flex>
                       </Stack>
                     ))}
                   </Flex>
                 </ScrollArea>
+              </Paper>
+
+              <Paper mt="xl" radius="lg" py="lg" bg="rgba(255, 255, 255, 0.1)">
+                {weather.daily.map((day) => (
+                  <Flex
+                    key={day.time}
+                    justify="space-around"
+                    align="center"
+                    mt="md"
+                  >
+                    <Text>
+                      {format(parseISO(day.time), "EEEEEE", { locale })}
+                    </Text>
+                    <Flex gap={{ base: "md", md: "xl" }} justify="end">
+                      <Flex justify="space-between" align="center" w={50}>
+                        <IconDroplet size={16} />
+                        <Text>{day.precipitationProbability}%</Text>
+                      </Flex>
+                      <IconWeather code={day.weatherCode} />
+                      <Flex gap="xs">
+                        <Text>{day.temperature.max}°</Text>
+                        <Text>{day.temperature.min}°</Text>
+                      </Flex>
+                    </Flex>
+                  </Flex>
+                ))}
               </Paper>
             </Box>
           )
