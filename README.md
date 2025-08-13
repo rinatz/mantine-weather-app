@@ -6,7 +6,7 @@ Mantine の学習用に作成した天気予報アプリです。
 
 https://mantine-weather-app.rinatz.workers.dev/
 
-![](./preview.png)
+[![](./preview.png)](https://mantine-weather-app.rinatz.workers.dev/)
 
 ## 技術スタック
 
