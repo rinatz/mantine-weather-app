@@ -218,19 +218,22 @@ export function Weather() {
                   offsetScrollbars
                 >
                   <Flex justify="space-between" gap="xl">
-                    {weather.hourly.map((hour) => (
+                    {weather.hourly.slice(0, 24).map((hour) => (
                       <Stack key={hour.time} align="center" gap="xs" mb="xl">
                         <Text size="sm" c="">
                           {format(parseISO(hour.time), "HH:mm")}
                         </Text>
                         <IconWeather code={hour.weatherCode} />
-                        <Text size="24px" ml="xs">{hour.temperature.current}°</Text>
+                        <Text size="24px" ml="xs">
+                          {hour.temperature.current}°
+                        </Text>
 
-                        <Flex align="center" pr={8}>
+                        <Flex align="center">
                           <IconDroplet size={16} />
                           <Text size="sm">
-                            {hour.precipitationProbability}%
+                            {hour.precipitationProbability}
                           </Text>
+                          <Text size="sm">%</Text>
                         </Flex>
                       </Stack>
                     ))}
