@@ -158,7 +158,12 @@ export function Weather() {
               e.key === "Enter" && fetchWeather(searchLocationName)
             }
           />
-          <Button onClick={() => fetchWeather(searchLocationName)}>表示</Button>
+          <Button
+            onClick={() => fetchWeather(searchLocationName)}
+            disabled={!searchLocationName || loading}
+          >
+            表示
+          </Button>
         </Flex>
 
         {loading ? (
