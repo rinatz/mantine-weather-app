@@ -60,9 +60,6 @@ function IconWeather({ code, ...props }: IconWeatherProps) {
   if ([95, 96, 99].includes(code)) {
     return <IconCloudStorm {...iconProps} />;
   }
-  if ([96, 99].includes(code)) {
-    return <IconCloudStorm {...iconProps} />;
-  }
 
   const { ...boxProps } = props as BoxProps;
 
