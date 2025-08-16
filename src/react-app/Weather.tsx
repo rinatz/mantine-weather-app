@@ -31,47 +31,78 @@ import { format, parseISO } from "date-fns";
 import { ja } from "date-fns/locale";
 import { useWeather } from "./hooks/useWeather";
 
+const WEATHER_ICON_MAP: Record<number, React.ElementType> = {
+  0: IconSun,
+  1: IconSun,
+  2: IconCloud,
+  3: IconCloud,
+  45: IconMist,
+  48: IconMist,
+  51: IconCloudRain,
+  53: IconCloudRain,
+  55: IconCloudRain,
+  56: IconCloudRain,
+  57: IconCloudRain,
+  61: IconCloudRain,
+  63: IconCloudRain,
+  65: IconCloudRain,
+  66: IconCloudRain,
+  67: IconCloudRain,
+  80: IconCloudRain,
+  81: IconCloudRain,
+  82: IconCloudRain,
+  71: IconCloudSnow,
+  73: IconCloudSnow,
+  75: IconCloudSnow,
+  77: IconCloudSnow,
+  85: IconCloudSnow,
+  86: IconCloudSnow,
+  95: IconCloudStorm,
+  96: IconCloudStorm,
+  99: IconCloudStorm,
+};
+
+const WEATHER_TEXT_MAP: Record<number, string> = {
+  0: "快晴",
+  1: "ほぼ晴れ",
+  2: "薄曇り",
+  3: "曇り",
+  45: "霧",
+  48: "樹氷を伴う霧",
+  51: "霧雨（弱い）",
+  53: "霧雨（やや強い）",
+  55: "霧雨（強い）",
+  56: "着氷性の霧雨（弱い）",
+  57: "着氷性の霧雨（強い）",
+  61: "雨（弱い）",
+  63: "雨（やや強い）",
+  65: "雨（強い）",
+  66: "着氷性の雨（弱い）",
+  67: "着氷性の雨（強い）",
+  71: "降雪（弱い）",
+  73: "降雪（やや強い）",
+  75: "降雪（強い）",
+  77: "雪あられ",
+  80: "にわか雨（弱い）",
+  81: "にわか雨（やや強い）",
+  82: "にわか雨（非常に強い）",
+  85: "にわか雪（弱い）",
+  86: "にわか雪（強い）",
+  95: "雷雨（弱い〜中程度）",
+  96: "ひょうを伴う雷雨（弱い）",
+  99: "ひょうを伴う雷雨（強い）",
+};
+
 type IconWeatherProps = {
   weatherCode: number;
 } & Omit<IconProps, "ref"> &
   BoxProps;
 
 function IconWeather({ weatherCode: weatherCode, ...props }: IconWeatherProps) {
-  const weatherIconMap: Record<number, React.ElementType> = {
-    0: IconSun,
-    1: IconSun,
-    2: IconCloud,
-    3: IconCloud,
-    45: IconMist,
-    48: IconMist,
-    51: IconCloudRain,
-    53: IconCloudRain,
-    55: IconCloudRain,
-    56: IconCloudRain,
-    57: IconCloudRain,
-    61: IconCloudRain,
-    63: IconCloudRain,
-    65: IconCloudRain,
-    66: IconCloudRain,
-    67: IconCloudRain,
-    80: IconCloudRain,
-    81: IconCloudRain,
-    82: IconCloudRain,
-    71: IconCloudSnow,
-    73: IconCloudSnow,
-    75: IconCloudSnow,
-    77: IconCloudSnow,
-    85: IconCloudSnow,
-    86: IconCloudSnow,
-    95: IconCloudStorm,
-    96: IconCloudStorm,
-    99: IconCloudStorm,
-  };
-
   const iconProps = props as IconProps;
   const boxProps = props as BoxProps;
 
-  const IconComponent = weatherIconMap[weatherCode];
+  const IconComponent = WEATHER_ICON_MAP[weatherCode];
 
   return IconComponent ? (
     <IconComponent {...iconProps} />
@@ -85,38 +116,7 @@ type WeatherTextProps = {
 } & TextProps;
 
 function WeatherText({ weatherCode, ...props }: WeatherTextProps) {
-  const weatherTextMap: Record<number, string> = {
-    0: "快晴",
-    1: "ほぼ晴れ",
-    2: "薄曇り",
-    3: "曇り",
-    45: "霧",
-    48: "樹氷を伴う霧",
-    51: "霧雨（弱い）",
-    53: "霧雨（やや強い）",
-    55: "霧雨（強い）",
-    56: "着氷性の霧雨（弱い）",
-    57: "着氷性の霧雨（強い）",
-    61: "雨（弱い）",
-    63: "雨（やや強い）",
-    65: "雨（強い）",
-    66: "着氷性の雨（弱い）",
-    67: "着氷性の雨（強い）",
-    71: "降雪（弱い）",
-    73: "降雪（やや強い）",
-    75: "降雪（強い）",
-    77: "雪あられ",
-    80: "にわか雨（弱い）",
-    81: "にわか雨（やや強い）",
-    82: "にわか雨（非常に強い）",
-    85: "にわか雪（弱い）",
-    86: "にわか雪（強い）",
-    95: "雷雨（弱い〜中程度）",
-    96: "ひょうを伴う雷雨（弱い）",
-    99: "ひょうを伴う雷雨（強い）",
-  };
-
-  const text = weatherTextMap[weatherCode] || "不明";
+  const text = WEATHER_TEXT_MAP[weatherCode] || "不明";
 
   return <Text {...props}>{text}</Text>;
 }
