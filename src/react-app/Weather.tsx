@@ -1,6 +1,6 @@
 // cSpell:ignore tabler
 
-import { Box, Stack, Group, Loader } from "@mantine/core";
+import { Box, Stack, Group, Loader, Text } from "@mantine/core";
 import { ja } from "date-fns/locale";
 import { useWeather } from "./hooks/useWeather";
 import { WeatherSearch } from "./WeatherSearch";
@@ -10,7 +10,7 @@ import { DailyForecast } from "./DailyForecast";
 
 export function Weather() {
   const locale = ja;
-  const { loading, weather, fetchWeather } = useWeather();
+  const { loading, weather, error, fetchWeather } = useWeather();
 
   return (
     <Stack
@@ -37,6 +37,10 @@ export function Weather() {
           <Group gap="xs" align="center" justify="center" mt={20}>
             <Loader size="sm" />
           </Group>
+        ) : error ? (
+          <Text c="red" my="md">
+            {error}
+          </Text>
         ) : (
           weather && (
             <Box px="sm">
