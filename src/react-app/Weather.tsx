@@ -85,7 +85,7 @@ type WeatherTextProps = {
 } & TextProps;
 
 function WeatherText({ weatherCode, ...props }: WeatherTextProps) {
-  const weatherCodeString: Record<number, string> = {
+  const weatherTextMap: Record<number, string> = {
     0: "快晴",
     1: "ほぼ晴れ",
     2: "薄曇り",
@@ -116,7 +116,7 @@ function WeatherText({ weatherCode, ...props }: WeatherTextProps) {
     99: "ひょうを伴う雷雨（強い）",
   };
 
-  const text = weatherCodeString[weatherCode] || "不明";
+  const text = weatherTextMap[weatherCode] || "不明";
 
   return <Text {...props}>{text}</Text>;
 }
