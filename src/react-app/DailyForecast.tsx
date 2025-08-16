@@ -1,10 +1,10 @@
 import { Paper, Flex, Text } from "@mantine/core";
 import { IconDroplet } from "@tabler/icons-react";
-import { format, Locale, parseISO } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { IconWeather } from "./IconWeather";
+import { LOCALE } from "./constants/constants";
 
 export type DailyForecastProps = {
-  locale: Locale;
   daily: {
     time: string;
     weatherCode: number;
@@ -16,12 +16,14 @@ export type DailyForecastProps = {
   }[];
 };
 
-export function DailyForecast({ locale, daily }: DailyForecastProps) {
+export function DailyForecast({ daily }: DailyForecastProps) {
   return (
     <Paper mt="xl" radius="lg" py="lg" bg="rgba(255, 255, 255, 0.1)">
       {daily.map((day) => (
         <Flex key={day.time} justify="space-around" align="center" mt="md">
-          <Text>{format(parseISO(day.time), "EEEEEE", { locale })}</Text>
+          <Text>
+            {format(parseISO(day.time), "EEEEEE", { locale: LOCALE })}
+          </Text>
           <Flex gap={{ base: "md", md: "xl" }} justify="end">
             <Flex justify="space-between" align="center" w={50}>
               <IconDroplet size={16} />

@@ -1,7 +1,6 @@
 // cSpell:ignore tabler
 
 import { Box, Stack, Group, Loader, Text } from "@mantine/core";
-import { ja } from "date-fns/locale";
 import { useWeather } from "./hooks/useWeather";
 import { WeatherSearch } from "./WeatherSearch";
 import { CurrentWeather } from "./CurrentWeather";
@@ -9,7 +8,6 @@ import { HourlyForecast } from "./HourlyForecast";
 import { DailyForecast } from "./DailyForecast";
 
 export function Weather() {
-  const locale = ja;
   const { loading, weather, error, fetchWeather } = useWeather();
 
   return (
@@ -54,7 +52,7 @@ export function Weather() {
               />
 
               <HourlyForecast hourly={weather.hourly} />
-              <DailyForecast locale={locale} daily={weather.daily} />
+              <DailyForecast daily={weather.daily} />
             </Box>
           )
         )}
