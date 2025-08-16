@@ -1,15 +1,6 @@
 // cSpell:ignore tabler
 
-import {
-  Box,
-  Stack,
-  Text,
-  Group,
-  Loader,
-  Flex,
-  Paper,
-  ScrollArea,
-} from "@mantine/core";
+import { Box, Stack, Text, Group, Loader, Flex, Paper } from "@mantine/core";
 import { IconDroplet } from "@tabler/icons-react";
 import { format, parseISO } from "date-fns";
 import { ja } from "date-fns/locale";
@@ -17,6 +8,7 @@ import { useWeather } from "./hooks/useWeather";
 import { WeatherSearch } from "./WeatherSearch";
 import { IconWeather } from "./IconWeather";
 import { CurrentWeather } from "./CurrentWeather";
+import { HourlyForecast } from "./HourlyForecast";
 
 export function Weather() {
   const locale = ja;
@@ -59,44 +51,7 @@ export function Weather() {
                 weatherCode={weather.hourly[0].weatherCode}
               />
 
-              <Paper
-                mt="xl"
-                radius="lg"
-                pt="lg"
-                px="xl"
-                bg="rgba(255, 255, 255, 0.1)"
-                style={{
-                  overflowX: "auto",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                <ScrollArea
-                  type="hover"
-                  scrollbarSize={16}
-                  scrollHideDelay={0}
-                  offsetScrollbars
-                >
-                  <Flex justify="space-between" gap="xl">
-                    {weather.hourly.slice(0, 24).map((hour) => (
-                      <Stack key={hour.time} align="center" gap="xs" mb="xl">
-                        <Text size="sm" c="">
-                          {format(parseISO(hour.time), "HH:mm")}
-                        </Text>
-                        <IconWeather weatherCode={hour.weatherCode} />
-                        <Text size="24px" ml="xs">
-                          {hour.temperature.current}°
-                        </Text>
-
-                        <Flex align="center">
-                          <IconDroplet size={16} />
-                          <Text size="sm">{hour.precipitationProbability}</Text>
-                          <Text size="sm">%</Text>
-                        </Flex>
-                      </Stack>
-                    ))}
-                  </Flex>
-                </ScrollArea>
-              </Paper>
+              <HourlyForecast hourly={weather.hourly} />
 
               <Paper mt="xl" radius="lg" py="lg" bg="rgba(255, 255, 255, 0.1)">
                 {weather.daily.map((day) => (
