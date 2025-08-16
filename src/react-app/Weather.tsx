@@ -1,7 +1,6 @@
 // cSpell:ignore tabler
 
 import { useState } from "react";
-import { WeatherByLocationResponse } from "../types";
 import {
   Box,
   Stack,
@@ -30,6 +29,7 @@ import {
 } from "@tabler/icons-react";
 import { format, parseISO } from "date-fns";
 import { ja } from "date-fns/locale";
+import { useWeather } from "./hooks/useWeather";
 
 type IconWeatherProps = {
   code: number;
@@ -114,29 +114,7 @@ export function Weather() {
   const locale = ja;
 
   const [searchLocationName, setSearchLocationName] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [weather, setWeather] = useState<WeatherByLocationResponse | null>(
-    null
-  );
-
-  const fetchWeather = async () => {
-    if (searchLocationName === "") {
-      return;
-    }
-
-    const url = new URL("/weather", window.location.origin);
-    url.searchParams.set("q", searchLocationName);
-
-    setLoading(true);
-    setWeather(null);
-
-    try {
-      const response = await fetch(url.toString());
-      setWeather(await response.json());
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { loading, weather, fetchWeather } = useWeather();
 
   return (
     <Stack
@@ -165,9 +143,11 @@ export function Weather() {
             onChange={(e) =>
               setSearchLocationName(e.currentTarget.value.trim())
             }
-            onKeyDown={(e) => e.key === "Enter" && fetchWeather()}
+            onKeyDown={(e) =>
+              e.key === "Enter" && fetchWeather(searchLocationName)
+            }
           />
-          <Button onClick={fetchWeather}>表示</Button>
+          <Button onClick={() => fetchWeather(searchLocationName)}>表示</Button>
         </Flex>
 
         {loading ? (
