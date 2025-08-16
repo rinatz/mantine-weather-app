@@ -1,6 +1,6 @@
 // cSpell:ignore tabler
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Stack,
@@ -32,38 +32,52 @@ import { ja } from "date-fns/locale";
 import { useWeather } from "./hooks/useWeather";
 
 type IconWeatherProps = {
-  code: number;
+  weatherCode: number;
 } & Omit<IconProps, "ref"> &
   BoxProps;
 
-function IconWeather({ code, ...props }: IconWeatherProps) {
+function IconWeather({ weatherCode: weatherCode, ...props }: IconWeatherProps) {
+  const weatherIconMap: Record<number, React.ElementType> = {
+    0: IconSun,
+    1: IconSun,
+    2: IconCloud,
+    3: IconCloud,
+    45: IconMist,
+    48: IconMist,
+    51: IconCloudRain,
+    53: IconCloudRain,
+    55: IconCloudRain,
+    56: IconCloudRain,
+    57: IconCloudRain,
+    61: IconCloudRain,
+    63: IconCloudRain,
+    65: IconCloudRain,
+    66: IconCloudRain,
+    67: IconCloudRain,
+    80: IconCloudRain,
+    81: IconCloudRain,
+    82: IconCloudRain,
+    71: IconCloudSnow,
+    73: IconCloudSnow,
+    75: IconCloudSnow,
+    77: IconCloudSnow,
+    85: IconCloudSnow,
+    86: IconCloudSnow,
+    95: IconCloudStorm,
+    96: IconCloudStorm,
+    99: IconCloudStorm,
+  };
+
   const iconProps = props as IconProps;
+  const boxProps = props as BoxProps;
 
-  if ([0, 1].includes(code)) {
-    return <IconSun {...iconProps} />;
-  }
-  if ([2, 3].includes(code)) {
-    return <IconCloud {...iconProps} />;
-  }
-  if ([45, 48].includes(code)) {
-    return <IconMist {...iconProps} />;
-  }
-  if ([51, 53, 55, 56, 57].includes(code)) {
-    return <IconCloudRain {...iconProps} />;
-  }
-  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) {
-    return <IconCloudRain {...iconProps} />;
-  }
-  if ([71, 73, 75, 77, 85, 86].includes(code)) {
-    return <IconCloudSnow {...iconProps} />;
-  }
-  if ([95, 96, 99].includes(code)) {
-    return <IconCloudStorm {...iconProps} />;
-  }
+  const IconComponent = weatherIconMap[weatherCode];
 
-  const { ...boxProps } = props as BoxProps;
-
-  return <Box {...boxProps} />;
+  return IconComponent ? (
+    <IconComponent {...iconProps} />
+  ) : (
+    <Box {...boxProps} />
+  );
 }
 
 type WeatherTextProps = {
@@ -179,7 +193,10 @@ export function Weather() {
                     体感温度{weather.hourly[0].temperature.apparent}°
                   </Text>
                 </Stack>
-                <IconWeather code={weather.hourly[0].weatherCode} size={128} />
+                <IconWeather
+                  weatherCode={weather.hourly[0].weatherCode}
+                  size={128}
+                />
               </Flex>
 
               <Paper
@@ -205,7 +222,7 @@ export function Weather() {
                         <Text size="sm" c="">
                           {format(parseISO(hour.time), "HH:mm")}
                         </Text>
-                        <IconWeather code={hour.weatherCode} />
+                        <IconWeather weatherCode={hour.weatherCode} />
                         <Text size="24px" ml="xs">
                           {hour.temperature.current}°
                         </Text>
@@ -237,7 +254,7 @@ export function Weather() {
                         <IconDroplet size={16} />
                         <Text>{day.precipitationProbability}%</Text>
                       </Flex>
-                      <IconWeather code={day.weatherCode} />
+                      <IconWeather weatherCode={day.weatherCode} />
                       <Flex gap="xs">
                         <Text>{day.temperature.max}°</Text>
                         <Text>{day.temperature.min}°</Text>
