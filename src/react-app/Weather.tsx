@@ -1,6 +1,6 @@
 // cSpell:ignore tabler
 
-import { Box, Stack, Group, Loader, Text } from "@mantine/core";
+import { Box, Stack, Group, Loader, Text, Title } from "@mantine/core";
 import { useWeather } from "./hooks/useWeather";
 import { WeatherSearch } from "./WeatherSearch";
 import { CurrentWeather } from "./CurrentWeather";
@@ -29,6 +29,9 @@ export function Weather() {
       />
 
       <Box w="100%" maw={640} p="md" style={{ zIndex: 1 }}>
+        <Title order={2} my="xl" ta="center">
+          天気予報
+        </Title>
         <WeatherSearch fetchWeather={fetchWeather} loading={loading} />
 
         {loading ? (
