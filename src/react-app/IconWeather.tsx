@@ -1,6 +1,6 @@
 import { Box, BoxProps } from "@mantine/core";
 import { IconProps } from "@tabler/icons-react";
-import { WEATHER_CODE_MAP } from "./constants/constants";
+import { WEATHER_CODE_MAP } from "./constants";
 
 export type IconWeatherProps = {
   weatherCode: number;

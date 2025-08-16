@@ -2,7 +2,7 @@ import { Paper, Flex, Text } from "@mantine/core";
 import { IconDroplet } from "@tabler/icons-react";
 import { format, parseISO } from "date-fns";
 import { IconWeather } from "./IconWeather";
-import { LOCALE } from "./constants/constants";
+import { LOCALE } from "./constants";
 
 export type DailyForecastProps = {
   daily: {
