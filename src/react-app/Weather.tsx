@@ -1,15 +1,13 @@
 // cSpell:ignore tabler
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Stack,
-  TextInput,
   Text,
   Group,
   Loader,
   Flex,
-  Button,
   Paper,
   ScrollArea,
   BoxProps,
@@ -19,7 +17,6 @@ import {
   IconCloud,
   IconDroplet,
   IconMapPin,
-  IconSearch,
   IconSun,
   IconMist,
   IconCloudRain,
@@ -30,6 +27,7 @@ import {
 import { format, parseISO } from "date-fns";
 import { ja } from "date-fns/locale";
 import { useWeather } from "./hooks/useWeather";
+import { WeatherSearch } from "./WeatherSearch";
 
 const WEATHER_ICON_MAP: Record<number, React.ElementType> = {
   0: IconSun,
@@ -123,8 +121,6 @@ function WeatherText({ weatherCode, ...props }: WeatherTextProps) {
 
 export function Weather() {
   const locale = ja;
-
-  const [locationName, setLocationName] = useState("");
   const { loading, weather, fetchWeather } = useWeather();
 
   return (
@@ -146,21 +142,7 @@ export function Weather() {
       />
 
       <Box w="100%" maw={640} p="md" style={{ zIndex: 1 }}>
-        <Flex gap="sm">
-          <TextInput
-            placeholder="天気を見たい地名を入力"
-            leftSection={<IconSearch />}
-            flex={1}
-            onChange={(e) => setLocationName(e.currentTarget.value.trim())}
-            onKeyDown={(e) => e.key === "Enter" && fetchWeather(locationName)}
-          />
-          <Button
-            onClick={() => fetchWeather(locationName)}
-            disabled={!locationName || loading}
-          >
-            表示
-          </Button>
-        </Flex>
+        <WeatherSearch fetchWeather={fetchWeather} loading={loading} />
 
         {loading ? (
           <Group gap="xs" align="center" justify="center" mt={20}>
