@@ -124,7 +124,7 @@ function WeatherText({ weatherCode, ...props }: WeatherTextProps) {
 export function Weather() {
   const locale = ja;
 
-  const [searchLocationName, setSearchLocationName] = useState("");
+  const [locationName, setLocationName] = useState("");
   const { loading, weather, fetchWeather } = useWeather();
 
   return (
@@ -151,16 +151,12 @@ export function Weather() {
             placeholder="天気を見たい地名を入力"
             leftSection={<IconSearch />}
             flex={1}
-            onChange={(e) =>
-              setSearchLocationName(e.currentTarget.value.trim())
-            }
-            onKeyDown={(e) =>
-              e.key === "Enter" && fetchWeather(searchLocationName)
-            }
+            onChange={(e) => setLocationName(e.currentTarget.value.trim())}
+            onKeyDown={(e) => e.key === "Enter" && fetchWeather(locationName)}
           />
           <Button
-            onClick={() => fetchWeather(searchLocationName)}
-            disabled={!searchLocationName || loading}
+            onClick={() => fetchWeather(locationName)}
+            disabled={!locationName || loading}
           >
             表示
           </Button>
