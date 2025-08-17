@@ -1,8 +1,10 @@
-import { Paper, Flex, Text } from "@mantine/core";
+// cSpell:ignore tabler
+
+import { Flex, Paper, Text } from "@mantine/core";
 import { IconDroplet } from "@tabler/icons-react";
 import { format, parseISO } from "date-fns";
-import { IconWeather } from "./IconWeather";
 import { LOCALE } from "./constants";
+import { IconWeather } from "./IconWeather";
 
 export type DailyForecastProps = {
   daily: {

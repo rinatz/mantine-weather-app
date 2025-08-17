@@ -1,4 +1,4 @@
-import { Text, TextProps } from "@mantine/core";
+import { Text, type TextProps } from "@mantine/core";
 import { WEATHER_CODE_MAP } from "./constants";
 
 export type WeatherTextProps = {

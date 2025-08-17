@@ -1,12 +1,14 @@
-import { ja } from "date-fns/locale";
+// cSpell:ignore tabler
+
 import {
   IconCloud,
-  IconSun,
-  IconMist,
   IconCloudRain,
   IconCloudSnow,
   IconCloudStorm,
+  IconMist,
+  IconSun,
 } from "@tabler/icons-react";
+import { ja } from "date-fns/locale";
 
 export const LOCALE = ja;
 

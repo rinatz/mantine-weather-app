@@ -1,4 +1,6 @@
-import { Flex, Text, Group, Stack } from "@mantine/core";
+// cSpell:ignore tabler
+
+import { Flex, Group, Stack, Text } from "@mantine/core";
 import { IconMapPin } from "@tabler/icons-react";
 import { IconWeather } from "./IconWeather";
 import { WeatherText } from "./WeatherText";

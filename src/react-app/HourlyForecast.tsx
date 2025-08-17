@@ -1,7 +1,9 @@
-import { Paper, ScrollArea, Flex, Stack, Text } from "@mantine/core";
+// cSpell:ignore tabler
+
+import { Flex, Paper, ScrollArea, Stack, Text } from "@mantine/core";
 import { IconDroplet } from "@tabler/icons-react";
-import { IconWeather } from "./IconWeather";
 import { format, parseISO } from "date-fns";
+import { IconWeather } from "./IconWeather";
 
 export type HourlyForecastProps = {
   hourly: {

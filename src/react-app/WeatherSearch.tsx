@@ -1,6 +1,6 @@
-import { Flex, TextInput, Button } from "@mantine/core";
-import { useState } from "react";
+import { Button, Flex, TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
+import { useState } from "react";
 
 export type WeatherSearchProps = {
   fetchWeather: (location: string) => void;

@@ -1,6 +1,5 @@
 import "@mantine/core/styles.css";
-
-import { MantineProvider, createTheme } from "@mantine/core";
+import { createTheme, MantineProvider } from "@mantine/core";
 import { Weather } from "./Weather";
 
 const theme = createTheme({

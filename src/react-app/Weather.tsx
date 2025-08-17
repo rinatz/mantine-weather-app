@@ -1,11 +1,11 @@
 // cSpell:ignore tabler
 
-import { Box, Stack, Group, Loader, Text, Title } from "@mantine/core";
+import { Box, Group, Loader, Stack, Text, Title } from "@mantine/core";
+import { CurrentWeather } from "./CurrentWeather";
+import { DailyForecast } from "./DailyForecast";
+import { HourlyForecast } from "./HourlyForecast";
 import { useWeather } from "./hooks/useWeather";
 import { WeatherSearch } from "./WeatherSearch";
-import { CurrentWeather } from "./CurrentWeather";
-import { HourlyForecast } from "./HourlyForecast";
-import { DailyForecast } from "./DailyForecast";
 
 export function Weather() {
   const { loading, weather, error, fetchWeather } = useWeather();

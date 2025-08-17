@@ -1,5 +1,7 @@
-import { Box, BoxProps } from "@mantine/core";
-import { IconProps } from "@tabler/icons-react";
+// cSpell:ignore tabler
+
+import { Box, type BoxProps } from "@mantine/core";
+import type { IconProps } from "@tabler/icons-react";
 import { WEATHER_CODE_MAP } from "./constants";
 
 export type IconWeatherProps = {
@@ -7,10 +9,7 @@ export type IconWeatherProps = {
 } & Omit<IconProps, "ref"> &
   BoxProps;
 
-export function IconWeather({
-  weatherCode: weatherCode,
-  ...props
-}: IconWeatherProps) {
+export function IconWeather({ weatherCode, ...props }: IconWeatherProps) {
   const iconProps = props as IconProps;
   const boxProps = props as BoxProps;
 
